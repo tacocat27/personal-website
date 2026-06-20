@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patterns — M.Y.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="monogram">M.Y.</a>
+    <nav class="site-nav">
+      <a href="writing.html">Writing</a>
+      <a href="patterns.html">Patterns</a>
+      <a href="bookshelf.html">Bookshelf</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page-main patterns-main">
+    <h1>Patterns</h1>
+    <p class="patterns-intro">I made this to think more structurally about how I want to spend my life. I started with the three things that I keep finding myself drawn to, and then I analyzed why.</p>
+
+    <div class="patterns-graph-wrap">
+      <div class="patterns-graph" id="patterns-graph"></div>
+      <div class="patterns-quote-panel placeholder" id="patterns-quote">Click a domain to read more.</div>
+    </div>
+
+    <section class="patterns-tensions">
+      <p class="patterns-intro">I've noticed that there's an underlying tension connecting them all. I want to push outward&mdash;toward risk, toward challenge&mdash;but never at the cost of the people and things I care about. I'd roughly characterize it like this:</p>
+
+      <div class="tension-grid">
+        <div class="tension-row">
+          <p class="tension-pair">Risk + Care</p>
+          <p>I'm drawn to things that are genuinely uncertain. But taking risks only means something if I don't lose sight of who and what I carry with me.</p>
+        </div>
+        <div class="tension-row">
+          <p class="tension-pair">Power + Tenderness</p>
+          <p>I want to be someone people can count on. But being strong isn't just enduring; it's paying attention and actually caring.</p>
+        </div>
+        <div class="tension-row">
+          <p class="tension-pair">Autonomy + Responsibility</p>
+          <p>I've always wanted the freedom to choose my own path. But complete independence is an illusion. To choose a life is to choose what you're accountable for.</p>
+        </div>
+      </div>
+    </section>
+
+    <p class="patterns-closing">And so, I've come to think that <strong>identity is forged through voluntary exposure to uncertainty.</strong></p>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 Marina Yu</span>
+  </footer>
+
+  <script>
+    var DOMAIN_INFO = {
+      mountains: {
+        subtitle: "strong enough to stand alone",
+        quote: "I measure myself against something that doesn't care about me. The indifference makes the feedback honest."
+      },
+      community: {
+        subtitle: "strong enough to carry others",
+        quote: "I can't, and I wouldn't want to do any of this alone. This is where strength points outwards."
+      },
+      music: {
+        subtitle: "strong enough to let it go",
+        quote: "I've spent thousands of hours building technical excellence, so that in the end I can release it."
+      }
+    };
+
+    // domains laid out side by side; sub-nodes anchored loosely around their domain(s),
+    // spread further apart to reduce label/line overlap
+    var NODES = [
+      { id: "mountains", label: "Mountains", ax: 150, ay: 270, type: "domain" },
+      { id: "community", label: "Community", ax: 620, ay: 270, type: "domain" },
+      { id: "music", label: "Music", ax: 1090, ay: 270, type: "domain" },
+
+      { id: "curiosity", label: "Curiosity", ax: 30, ay: 110, type: "sub" },
+      { id: "risk", label: "Risk", ax: 30, ay: 420, type: "sub" },
+      { id: "selfEfficacy", label: "Self-efficacy", ax: 200, ay: 40, type: "sub" },
+
+      { id: "responsibility", label: "Responsibility", ax: 700, ay: 40, type: "sub" },
+      { id: "trust", label: "Trust", ax: 730, ay: 440, type: "sub" },
+      { id: "careVulnerable", label: "Care for the vulnerable", ax: 540, ay: 40, type: "sub" },
+
+      { id: "controlledVulnerability", label: "Controlled vulnerability", ax: 930, ay: 95, type: "sub" },
+      { id: "resilience", label: "Resilience", ax: 1185, ay: 95, type: "sub" },
+
+      { id: "excellence", label: "Excellence", ax: 340, ay: 430, type: "sub" },
+      { id: "selfTranscendence", label: "Self-transcendence", ax: 470, ay: 450, type: "sub" },
+      { id: "challenge", label: "Challenge", ax: 700, ay: 450, type: "sub" },
+      { id: "freedom", label: "Freedom", ax: 850, ay: 430, type: "sub" },
+
+      { id: "humility", label: "Humility", ax: 385, ay: 75, type: "sub" },
+
+      { id: "persistence", label: "Persistence", ax: 610, ay: 400, type: "sub" }
+    ];
+
+    var EDGES = [
+      ["mountains", "curiosity"], ["mountains", "risk"], ["mountains", "selfEfficacy"],
+      ["mountains", "humility"], ["mountains", "excellence"], ["mountains", "selfTranscendence"],
+      ["mountains", "challenge"], ["mountains", "freedom"], ["mountains", "persistence"], ["mountains", "resilience"],
+
+      ["community", "responsibility"], ["community", "trust"], ["community", "careVulnerable"],
+      ["community", "humility"], ["community", "persistence"], ["community", "risk"],
+
+      ["music", "controlledVulnerability"], ["music", "resilience"], ["music", "excellence"],
+      ["music", "selfTranscendence"], ["music", "challenge"], ["music", "freedom"], ["music", "persistence"], ["music", "risk"]
+    ];
+
+    var CANVAS_W = 1200, CANVAS_H = 500;
+    var graphEl = document.getElementById("patterns-graph");
+    var quoteEl = document.getElementById("patterns-quote");
+    var nodeById = {};
+    NODES.forEach(function (n) { nodeById[n.id] = n; n.x = n.ax; n.y = n.ay; });
+
+    // degree (connection count) per node, used for dot sizing — like Obsidian's graph view
+    var degree = {};
+    EDGES.forEach(function (edge) {
+      degree[edge[0]] = (degree[edge[0]] || 0) + 1;
+      degree[edge[1]] = (degree[edge[1]] || 0) + 1;
+    });
+
+    var svgNS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("class", "graph-lines");
+    svg.setAttribute("viewBox", "0 0 " + CANVAS_W + " " + CANVAS_H);
+    svg.setAttribute("preserveAspectRatio", "none");
+    svg.setAttribute("aria-hidden", "true");
+    graphEl.appendChild(svg);
+
+    EDGES.forEach(function (edge) {
+      var a = nodeById[edge[0]], b = nodeById[edge[1]];
+      var line = document.createElementNS(svgNS, "line");
+      line.setAttribute("class", "graph-edge");
+      line.dataset.a = edge[0];
+      line.dataset.b = edge[1];
+      svg.appendChild(line);
+      a.edges = a.edges || []; a.edges.push(line);
+      b.edges = b.edges || []; b.edges.push(line);
+    });
+
+    function applyNodePosition(n) {
+      n.el.style.left = (n.x / CANVAS_W * 100) + "%";
+      n.el.style.top = (n.y / CANVAS_H * 100) + "%";
+      if (n.edges) {
+        n.edges.forEach(function (line) {
+          var a = nodeById[line.dataset.a], b = nodeById[line.dataset.b];
+          line.setAttribute("x1", a.x);
+          line.setAttribute("y1", a.y);
+          line.setAttribute("x2", b.x);
+          line.setAttribute("y2", b.y);
+        });
+      }
+    }
+
+    NODES.forEach(function (n) {
+      var el = document.createElement("div");
+      el.className = "graph-node graph-node--" + n.type;
+      el.dataset.id = n.id;
+
+      var dot = document.createElement("span");
+      dot.className = "node-dot";
+      if (n.type === "sub") {
+        var d = degree[n.id] || 1;
+        var size = Math.min(6 + d * 2, 14);
+        dot.style.width = size + "px";
+        dot.style.height = size + "px";
+      }
+      el.appendChild(dot);
+
+      if (n.type === "sub" && n.label.length > 16) {
+        el.classList.add("wrap-label");
+      }
+
+      var label = document.createElement("span");
+      label.className = "node-label";
+      label.textContent = n.type === "sub" ? n.label.toLowerCase() : n.label;
+      el.appendChild(label);
+
+      if (n.type === "domain") {
+        el.addEventListener("click", function (e) {
+          e.stopPropagation();
+          selectDomain(n.id);
+        });
+      }
+
+      graphEl.appendChild(el);
+      n.el = el;
+
+      // float parameters — slow, smooth, asynchronous sine drift like particles
+      n.freqX = 0.05 + Math.random() * 0.07;
+      n.freqY = 0.05 + Math.random() * 0.07;
+      n.phaseX = Math.random() * Math.PI * 2;
+      n.phaseY = Math.random() * Math.PI * 2;
+      n.ampX = n.type === "domain" ? 8 + Math.random() * 5 : 10 + Math.random() * 10;
+      n.ampY = n.type === "domain" ? 6 + Math.random() * 5 : 9 + Math.random() * 9;
+
+      applyNodePosition(n);
+    });
+
+    var selected = null;
+    var frozen = false;
+
+    function setHighlight(id) {
+      var connected = {};
+      if (id) {
+        connected[id] = true;
+        EDGES.forEach(function (edge) {
+          if (edge[0] === id) connected[edge[1]] = true;
+          if (edge[1] === id) connected[edge[0]] = true;
+        });
+      }
+      NODES.forEach(function (n) {
+        n.el.classList.toggle("faded", !!id && !connected[n.id]);
+      });
+      svg.querySelectorAll(".graph-edge").forEach(function (line) {
+        if (!id) {
+          line.classList.remove("faded", "lit");
+          return;
+        }
+        var isLit = connected[line.dataset.a] && connected[line.dataset.b];
+        line.classList.toggle("lit", isLit);
+        line.classList.toggle("faded", !isLit);
+      });
+    }
+
+    function resetSelection() {
+      if (!frozen) return;
+      frozen = false;
+      selected = null;
+      NODES.forEach(function (n) {
+        if (n.type === "domain") n.el.classList.remove("selected");
+      });
+      setHighlight(null);
+      quoteEl.classList.add("placeholder");
+      quoteEl.textContent = "Click a domain to read more.";
+    }
+
+    function selectDomain(id) {
+      if (frozen && selected === id) {
+        resetSelection();
+        return;
+      }
+
+      frozen = true;
+      selected = id;
+      NODES.forEach(function (n) {
+        if (n.type === "domain") n.el.classList.toggle("selected", n.id === id);
+      });
+      setHighlight(id);
+
+      var info = DOMAIN_INFO[id];
+      quoteEl.classList.remove("placeholder");
+      quoteEl.innerHTML = '<span class="quote-label">' + info.subtitle + "</span>" + info.quote;
+    }
+
+    // clicking anywhere outside a domain node (graph background, sub-nodes,
+    // or the rest of the page) returns to the default animated state
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest(".graph-node--domain")) {
+        resetSelection();
+      }
+    });
+
+    // ambient floating animation — pure function of elapsed time, so freezing
+    // is just pausing the clock rather than stopping/restarting anything
+    var elapsed = 0;
+    var lastTime = null;
+
+    function tick(now) {
+      if (lastTime === null) lastTime = now;
+      var dt = now - lastTime;
+      lastTime = now;
+      if (!frozen) elapsed += dt;
+
+      var t = elapsed / 1000;
+      NODES.forEach(function (n) {
+        n.x = n.ax + Math.sin(t * n.freqX * Math.PI * 2 + n.phaseX) * n.ampX;
+        n.y = n.ay + Math.sin(t * n.freqY * Math.PI * 2 + n.phaseY) * n.ampY;
+        applyNodePosition(n);
+      });
+
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

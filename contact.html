@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — M.Y.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="monogram">M.Y.</a>
+    <nav class="site-nav">
+      <a href="writing.html">Writing</a>
+      <a href="patterns.html">Patterns</a>
+      <a href="bookshelf.html">Bookshelf</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page-main contact-main">
+    <h1>Contact</h1>
+
+    <p class="page-placeholder" id="contact-hint">pet my dog to access my email</p>
+
+    <div id="dog" class="dog-wrap" role="button" tabindex="0" aria-label="Pet the dog to reveal email">
+      <img src="assets/img/dog-sticker.png" alt="my dog" />
+    </div>
+
+    <div id="contact-info" class="contact-info" hidden>
+      <p><a id="email-link" href="#">email</a></p>
+    </div>
+
+    <div class="contact-links">
+      <p><a href="https://www.linkedin.com/in/marinayyu" target="_blank" rel="noopener">LinkedIn</a></p>
+      <p><a href="https://www.youtube.com/@marinayuet/videos" target="_blank" rel="noopener">YouTube</a></p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 Marina Yu</span>
+  </footer>
+
+  <script>
+    // Email/LinkedIn assembled at runtime and only after enough pets,
+    // so it doesn't sit as plaintext in the page source for scrapers.
+    var EMAIL_PARTS = ["marinayu", "@", "stanford", ".", "edu"];
+
+    var dog = document.getElementById("dog");
+    var hint = document.getElementById("contact-hint");
+    var info = document.getElementById("contact-info");
+    var pets = 0;
+    var needed = 2;
+    var revealed = false;
+
+    function pet() {
+      if (revealed) return;
+      pets++;
+      dog.classList.remove("pet-bump");
+      void dog.offsetWidth;
+      dog.classList.add("pet-bump");
+
+      if (pets >= needed) {
+        revealed = true;
+        hint.textContent = "good dog.";
+        info.hidden = false;
+        document.getElementById("email-link").href = "mailto:" + EMAIL_PARTS.join("");
+        document.getElementById("email-link").textContent = EMAIL_PARTS.join("");
+      } else {
+        hint.textContent = "keep petting...";
+      }
+    }
+
+    dog.addEventListener("click", pet);
+    dog.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        pet();
+      }
+    });
+  </script>
+</body>
+</html>

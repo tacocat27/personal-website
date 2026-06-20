@@ -1,0 +1,19 @@
+<svg id="dog-svg" xmlns="http://www.w3.org/2000/svg" width="220" height="180" viewBox="0 0 220 180">
+  <ellipse cx="110" cy="150" rx="70" ry="12" fill="#e8dcc8" opacity="0.6"/>
+  <!-- body -->
+  <ellipse cx="110" cy="115" rx="55" ry="34" fill="#c9a876"/>
+  <!-- head -->
+  <circle cx="60" cy="85" r="34" fill="#c9a876"/>
+  <!-- ear -->
+  <path d="M40 60 Q28 80 42 100 Q52 92 50 70 Z" fill="#a9824f"/>
+  <!-- snout -->
+  <ellipse cx="38" cy="92" rx="14" ry="10" fill="#dcc8a3"/>
+  <circle cx="28" cy="90" r="3.5" fill="#3a2e26"/>
+  <!-- eye -->
+  <circle cx="58" cy="78" r="3" fill="#3a2e26"/>
+  <!-- tail -->
+  <path d="M165 105 Q190 95 185 75" stroke="#a9824f" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <!-- legs -->
+  <rect x="80" y="135" width="10" height="20" rx="4" fill="#a9824f"/>
+  <rect x="135" y="135" width="10" height="20" rx="4" fill="#a9824f"/>
+</svg>
