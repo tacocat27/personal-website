@@ -563,7 +563,8 @@ main.home {
 }
 
 @media (max-width: 600px) {
-  .site-header { padding: 2rem 1.25rem 1rem; }
+  .site-header { padding: 2rem 1.25rem 2.4rem; }
+  .site-header::after { height: 22px; }
   main.home { flex-direction: column-reverse; gap: 1.5rem; }
   .home-photo img { width: 220px; height: 220px; }
 }
