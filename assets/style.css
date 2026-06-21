@@ -44,11 +44,12 @@ a:hover { border-color: var(--espresso); }
   left: 0;
   right: 0;
   bottom: 0;
-  height: 28px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'><polyline points='0,54 20,50 45,52 70,42 90,46 110,30 125,36 140,18 155,26 170,12 182,20 195,8 208,16 222,28 240,22 255,34 270,24 285,38 300,30 315,44 330,26 345,36 360,20 375,30 390,14 405,22 420,10 432,18 445,6 458,14 470,28 485,20 500,32 515,24 528,38 540,28 555,42 568,32 582,16 596,24 610,8 622,18 635,4 648,12 660,26 672,18 685,30 698,20 712,34 725,24 738,40 750,30 763,44 775,32 788,12 800,20 812,2 824,10 836,22 848,14 860,28 872,18 885,32 898,22 912,38 925,28 938,44 950,34 962,48 975,38 988,50 1000,40 1015,52 1030,44 1045,54 1060,46 1080,52 1100,48 1120,53 1140,50 1160,54 1180,52 1200,55' fill='none' stroke='%23c9a876' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>");
+  height: 34px;
+  background-image: url("mountains.svg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  opacity: 0.75;
+  background-position: bottom;
+  opacity: 0.9;
 }
 
 .monogram {
