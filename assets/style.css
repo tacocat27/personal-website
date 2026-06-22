@@ -62,6 +62,7 @@ a:hover { border-color: var(--espresso); }
 
 .site-nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.75rem;
   font-size: 0.95rem;
 }
@@ -565,6 +566,11 @@ main.home {
 @media (max-width: 600px) {
   .site-header { padding: 2rem 1.25rem 2.4rem; }
   .site-header::after { height: 22px; }
+  .site-nav { width: 100%; row-gap: 0.6rem; column-gap: 1.25rem; }
   main.home { flex-direction: column-reverse; gap: 1.5rem; }
   .home-photo img { width: 220px; height: 220px; }
+}
+
+@media (max-width: 380px) {
+  .site-nav { column-gap: 1rem; font-size: 0.88rem; }
 }
