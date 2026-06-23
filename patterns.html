@@ -13,13 +13,20 @@
 </head>
 <body>
   <header class="site-header">
-    <a href="index.html" class="monogram">M.Y.</a>
+    <a href="index.html" class="monogram">
+      <img src="assets/img/headshot.jpg" alt="" class="monogram-avatar" />
+      <span class="monogram-text">M.Y.</span>
+    </a>
     <nav class="site-nav">
-      <a href="writing.html">Writing</a>
-      <a href="patterns.html">Patterns</a>
-      <a href="bookshelf.html">Bookshelf</a>
-      <a href="scrapbook.html">Scrapbook</a>
-      <a href="contact.html">Contact</a>
+      <div class="nav-row">
+        <a href="patterns.html">Patterns</a>
+        <a href="writing.html">Writing</a>
+        <a href="bookshelf.html">Bookshelf</a>
+      </div>
+      <div class="nav-row">
+        <a href="scrapbook.html">Scrapbook</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </nav>
   </header>
 
@@ -32,26 +39,29 @@
       <div class="patterns-quote-panel placeholder" id="patterns-quote">Click a domain to read more.</div>
     </div>
 
-    <section class="patterns-tensions">
-      <p class="patterns-intro">I've noticed that there's an underlying tension connecting them all. I want to push outward&mdash;toward risk, toward challenge&mdash;but never at the cost of the people and things I care about. I'd roughly characterize it like this:</p>
+    <div class="patterns-bleed-wrap">
+      <img src="assets/contours.svg" class="patterns-bleed-img" alt="" aria-hidden="true" />
+      <section class="patterns-tensions">
+        <p class="patterns-intro">I've noticed that there's an underlying tension connecting them all. I want to push outward&mdash;toward risk, toward challenge&mdash;but never at the cost of the people and things I care about. I'd roughly characterize it like this:</p>
 
-      <div class="tension-grid">
-        <div class="tension-row">
-          <p class="tension-pair">Risk + Care</p>
-          <p>I'm drawn to things that are genuinely uncertain. But taking risks only means something if I don't lose sight of who and what I carry with me.</p>
+        <div class="tension-grid">
+          <div class="tension-row">
+            <p class="tension-pair">Risk + Care</p>
+            <p>I'm drawn to things that are challenging and uncertain. But taking risks only means something if I don't lose sight of who and what I carry with me.</p>
+          </div>
+          <div class="tension-row">
+            <p class="tension-pair">Power + Tenderness</p>
+            <p>I want to be someone people can count on. For a while I read that as being able to endure a lot; the harder part, I think, is paying attention&mdash;actually noticing what someone needs.</p>
+          </div>
+          <div class="tension-row">
+            <p class="tension-pair">Autonomy + Responsibility</p>
+            <p>I've always wanted the freedom to choose my own path. But the more I choose, the more I realize that complete independence is an illusion. To choose a life is to choose what you're accountable for.</p>
+          </div>
         </div>
-        <div class="tension-row">
-          <p class="tension-pair">Power + Tenderness</p>
-          <p>I want to be someone people can count on. But being strong isn't just enduring; it's paying attention and actually caring.</p>
-        </div>
-        <div class="tension-row">
-          <p class="tension-pair">Autonomy + Responsibility</p>
-          <p>I've always wanted the freedom to choose my own path. But complete independence is an illusion. To choose a life is to choose what you're accountable for.</p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <p class="patterns-closing patterns-closing--contours"> Identity, I believe, is forged through voluntary exposure to uncertainty. For now, that means tracing the contours of a career I'm still shaping, and staying curious about where it leads.</p>
+      <p class="patterns-closing"> Identity, I believe, is forged through voluntary exposure to uncertainty. For me, that means tracing the contours of a career I'm still shaping, and staying curious about where it leads.</p>
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -61,16 +71,13 @@
   <script>
     var DOMAIN_INFO = {
       mountains: {
-        subtitle: "strong enough to stand alone",
-        quote: "I measure myself against something that doesn't care about me. The indifference makes the feedback honest."
+        quote: "This is where I test myself against something that has no stake in whether I succeed. I find out what I can actually do, instead of what I'd like to believe I can."
       },
       community: {
-        subtitle: "strong enough to carry others",
-        quote: "I can't, and I wouldn't want to do any of this alone. This is where strength points outwards."
+        quote: "I can't do any of this alone, and I wouldn't want to. On my own, being capable is just a fact about me; this is where it has to be good for someone else."
       },
       music: {
-        subtitle: "strong enough to let it go",
-        quote: "I've spent thousands of hours building technical excellence, so that in the end I can release it."
+        quote: "This one works in reverse. I've spent thousands of hours building technical excellence, so that when I perform, I can release it all."
       }
     };
 
@@ -258,7 +265,7 @@
 
       var info = DOMAIN_INFO[id];
       quoteEl.classList.remove("placeholder");
-      quoteEl.innerHTML = '<span class="quote-label">' + info.subtitle + "</span>" + info.quote;
+      quoteEl.textContent = info.quote;
     }
 
     // clicking anywhere outside a domain node (graph background, sub-nodes,

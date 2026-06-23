@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horizontal Agreement, Vertical Truth — Marina Yu, Stanford</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="monogram">
+      <img src="../assets/img/headshot.jpg" alt="" class="monogram-avatar" />
+      <span class="monogram-text">M.Y.</span>
+    </a>
+    <nav class="site-nav">
+      <div class="nav-row">
+        <a href="../patterns.html">Patterns</a>
+        <a href="../writing.html">Writing</a>
+        <a href="../bookshelf.html">Bookshelf</a>
+      </div>
+      <div class="nav-row">
+        <a href="../scrapbook.html">Scrapbook</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-main essay-main">
+    <a href="../writing.html" class="essay-back">&larr; Writing</a>
+    <h1>Horizontal Agreement, Vertical Truth</h1>
+    <p class="essay-meta">June 6, 2026</p>
+
+    <article class="essay-body">
+      <p><em>Adapted from a paper I wrote for a computability and logic class. The original is <a href="../assets/papers/horizontal-agreement-vertical-truth.pdf" target="_blank" rel="noopener">here</a>.</em></p>
+
+      <p>Underneath almost everything we say about computers and algorithms sits a single claim, the Church&ndash;Turing Thesis, which nearly everyone who invokes it treats as settled. Yet it cannot be a theorem, as it does not admit of proof. A deeper question emerges: what, exactly then, entitles us to believe it?</p>
+
+      <aside class="essay-theorem">
+        <span class="essay-theorem__label">Church&ndash;Turing Thesis</span>
+        <p>If a problem can be solved by any step-by-step mechanical process, it can be solved by a standard computer.</p>
+      </aside>
+
+      <p><strong>The convergence</strong></p>
+
+      <p>In the 1930s, several mathematicians set out to make precise an informal idea: what is it for something to be <em>computable</em>, that is, calculable by a finite, mechanical, step-by-step procedure? This was before computers existed, so the target was a human activity&mdash;the rote calculation a clerk could carry out with pencil and a fixed set of rules, requiring no ingenuity. Philosophers call it <em>effective calculability</em>.</p>
+
+      <p>Three figures approached it from unrelated directions. Alan Turing imagined an idealized machine reading and writing symbols on a tape. Alonzo Church built an abstract symbolic system, the lambda calculus. And Kurt G&ouml;del, with Stephen Kleene, defined a class of "recursive functions" in pure arithmetic. Three frameworks with nothing obvious in common, and yet they proved extensionally equivalent. Each picks out exactly the same class of functions, invariant under any change of machine, notation, or physical implementation. This is what the Church&ndash;Turing Thesis records.</p>
+
+      <p>The stability is striking, especially beside its sibling result. G&ouml;del's 1931 incompleteness theorems showed that mathematical <em>truth</em> cannot be captured by any single system of rules: for any consistent set of axioms strong enough for arithmetic, there are truths it cannot prove. One may always add axioms, but one never finishes. Provability, in this sense, is <em>relative</em>; it depends on the system. Computability is not. So I asked: why should one notion be absolute when the other is relative?</p>
+
+      <p><strong>Why it cannot be a theorem</strong></p>
+
+      <p>A theorem proves something <em>within</em> mathematics&mdash;one formal statement following from others. The Church&ndash;Turing Thesis instead asserts an <em>identity</em> between two different kinds of thing: effective calculability, an informal, pre-theoretic concept about what a person can do by following rules, and a rigorous mathematical object&mdash;the Turing machine, the lambda calculus, what have you. To prove an equivalence between the two is not a hard problem but a category error: proof relates formal statements to formal statements, and the informal concept is, necessarily, not yet formal&mdash;it is precisely what we are trying to capture.</p>
+
+      <p><strong>Horizontal and vertical</strong></p>
+
+      <p>The tempting answer is to appeal to the convergence itself. At first blush, one could think that if three independent formalizations agree, <em>surely they have captured the concept.</em></p>
+
+      <p>Consider five witnesses to a crime, interviewed separately, who describe it identically. Their agreement is reassuring&mdash;unless all five watched from the same obstructed angle, in which case they agree with one another and yet miss the same thing. Their consistency tells us nothing about what none of them could see.</p>
+
+      <p>So with the formalisms. Their agreement is <em>horizontal</em>: it certifies coherence among the candidate definitions. But the question we care about is <em>vertical</em>: is any of them faithful to the original concept? Horizontal agreement cannot answer a vertical question&mdash;namely, that a uniform formalization is perfectly consistent with a uniform omission. Invariance is thus necessary for having captured effective calculability, but cannot be sufficient. G&ouml;del made essentially this point, that a satisfying analysis would require a notion of computability that is genuinely absolute, and I cite him here as evidence, not authority.</p>
+
+      <figure class="essay-figure essay-figure--diagram">
+        <svg viewBox="0 0 360 280" role="img" aria-labelledby="hv-diagram-title">
+          <title id="hv-diagram-title">A simple x-y axis graph. The x-axis is labeled horizontal agreement; the y-axis is labeled vertical truth. Three points representing Turing, Church, and G&ouml;del-Kleene cluster tightly near the x-axis, and a dashed line rises from the cluster to an open, unresolved point, showing that their agreement says nothing about how high up the vertical-truth axis they actually are.</title>
+
+          <line x1="50" y1="225" x2="50" y2="20" class="hv-axis" />
+          <polygon points="50,10 44,22 56,22" class="hv-arrowhead" />
+          <line x1="50" y1="225" x2="330" y2="225" class="hv-axis" />
+          <polygon points="340,225 328,219 328,231" class="hv-arrowhead" />
+
+          <text x="190" y="258" class="hv-axis-label" text-anchor="middle">horizontal agreement</text>
+          <text x="20" y="122" class="hv-axis-label" text-anchor="middle" transform="rotate(-90 20 122)">vertical truth</text>
+
+          <line x1="195" y1="208" x2="195" y2="55" class="hv-vertical" />
+          <circle cx="195" cy="47" r="3.5" class="hv-point-open" />
+
+          <circle cx="175" cy="212" r="4" class="hv-point" />
+          <circle cx="195" cy="216" r="4" class="hv-point" />
+          <circle cx="215" cy="213" r="4" class="hv-point" />
+
+          <text x="195" y="195" class="hv-label" text-anchor="middle">Turing, Church, G&ouml;del&ndash;Kleene</text>
+        </svg>
+        <figcaption>Agreement is horizontal; truth is vertical.</figcaption>
+      </figure>
+
+      <p><strong>The grounding problem</strong></p>
+
+      <p>We therefore need something different in kind. No relation among the formalisms speaks to their fidelity to the concept; what is needed is a grip on the informal idea that is not itself wholly supplied by the formalism whose adequacy is in question. I call this <em>independent epistemic access</em>, and the demand for it the <em>grounding problem</em>. Without such access, any claim that the formal system has tracked the informal notion is either circular or unfalsifiable.</p>
+
+      <p>This radicalizes a difficulty Rudolf Carnap had identified: that replacing an informal concept (the <em>explicandum</em>) with a formal one (the <em>explicatum</em>) requires the two to be genuinely similar. The grounding problem presses the further question of how that similarity could ever be verified. My answer is that it cannot, unless we reach the concept from somewhere other than the formalism&mdash;and since that cannot be done from within any formalism, the warrant for the thesis must be extra-mathematical.</p>
+
+      <p><strong>What Turing did</strong></p>
+
+      <p>Church had tried to settle the matter by stipulation: &lambda;-definability simply <em>is</em> what we mean by effective calculability. But this does not answer the question; it restates it, supplying one more candidate definition and leaving the vertical question intact.</p>
+
+      <p>Turing, in 1936, did the opposite. Rather than propose another symbolic language, he turned to the calculating agent and asked what, of necessity, constrains any process we would recognize as a calculation. He isolated a few invariants on the human computer: for instance, a finite alphabet of distinguishable symbols; attention confined at any moment to a bounded portion of the work; finitely many internal states of mind; and steps determined by, and altering, only the local configuration and the current state. These are features not of a notation but of the embodied activity the notation is about&mdash;and interrogating the explicandum directly, rather than supplying another explicatum, is precisely what furnishes the independent epistemic access the grounding problem demands.</p>
+
+      <p><strong>The witness who mattered</strong></p>
+
+      <p>That this is the right diagnosis is corroborated by the one reader whose assent mattered most. G&ouml;del was conspicuously unmoved by the convergence of formalisms; that they agreed settled nothing for him, as one would expect if convergence is merely horizontal. Turing's analysis was another matter. In 1946 he singled out computability as the first absolute epistemological notion, and in a 1964 postscript credited Turing with a precise definition of the general concept of a formal system.</p>
+
+      <p><strong>Where this leaves us</strong></p>
+
+      <p>So why is computability absolute while provability relative? Because we have no access to proof <em>&uuml;berhaupt</em> except through some formal system&mdash;there is no phenomenology of "being a proof" to point to from outside. Turing supplied exactly such access for computation, grounding it in what a calculating agent can do, and that is what sets the two notions apart.</p>
+
+      <p>The point generalizes beyond the Church-Turing Thesis. The grounding problem confronts any explication: where independent access to the concept can be found, that concept can become absolute; where it cannot, relativity remains. The line between the absolute and the relative is drawn not by our formalisms, but by whether we can find a standpoint outside them.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 Marina Yu</span>
+  </footer>
+</body>
+</html>
