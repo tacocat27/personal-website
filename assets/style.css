@@ -157,6 +157,7 @@ main.home {
   max-width: 880px;
   margin: 0 auto;
   padding: 2rem 1.5rem 3rem;
+  font-family: "Inter", sans-serif;
   font-size: 0.85rem;
   color: var(--tan);
 }
@@ -477,8 +478,6 @@ main.home {
   padding: 0.15rem 0.45rem;
 }
 
-.essay-main { max-width: 640px; }
-
 .essay-back {
   display: inline-block;
   font-family: "Inter", sans-serif;
@@ -500,6 +499,22 @@ main.home {
 .essay-body p {
   margin: 0 0 1.3rem;
   font-size: 1.08rem;
+}
+
+.essay-premises {
+  margin: 1.8rem 0;
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--tan);
+}
+
+.essay-premises p.essay-premise {
+  margin: 0 0 0.4rem;
+  padding-left: 1.1em;
+  text-indent: -1.1em;
+}
+
+.essay-premises p.essay-premise:last-child {
+  margin-bottom: 0;
 }
 
 .essay-figure {
