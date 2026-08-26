@@ -45,7 +45,7 @@
   <main class="page-main contact-main">
     <h1>Contact</h1>
 
-    <p class="page-placeholder" id="contact-hint">pet my dog to access my email</p>
+    <p class="contact-hint" id="contact-hint">pet my dog to access my email</p>
 
     <div id="dog" class="dog-wrap" role="button" tabindex="0" aria-label="Pet the dog to reveal email">
       <img src="assets/img/dog-sticker.png" alt="my dog" />
@@ -66,8 +66,8 @@
   </footer>
 
   <script>
-    // Email/LinkedIn assembled at runtime and only after enough pets,
-    // so it doesn't sit as plaintext in the page source for scrapers.
+    // Email is joined at runtime, and only after enough pets, so the address
+    // never sits in the page source as one string for scrapers to grab.
     var EMAIL_PARTS = ["marinayu", "@", "stanford", ".", "edu"];
 
     var dog = document.getElementById("dog");
