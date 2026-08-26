@@ -3,7 +3,18 @@
     "allow": [
       "WebFetch(domain:manourimer.com)",
       "mcp__Claude_Preview__preview_start",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(python3 -)",
+      "Bash(chmod +x tools/typography.py)",
+      "Bash(python3 tools/typography.py)",
+      "Bash(python3 tools/typography.py --check)",
+      "Bash(echo \"exit=$?\")",
+      "Bash(sips -s format png moi.HEIC --out __TRACKED_VAR__/moi-raw.png)",
+      "Bash(python3 -c ' *)",
+      "Bash(cp adventures.html /tmp/adv-backup.html)",
+      "Bash(git commit *)",
+      "Bash(git show *)",
+      "Bash(git reset *)"
     ]
   }
 }

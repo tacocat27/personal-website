@@ -1,1 +1,13 @@
 .DS_Store
+
+# Camera originals. The site only serves the resized copies in
+# assets/img/adventures/ — these are 30MB+ and would live in history forever.
+/assets/*.JPG
+/assets/*.HEIC
+/assets/chamois *.jpg
+/assets/cotopaxi *.jpg
+/assets/half dome *.jpg
+/assets/rock *.jpg
+/assets/shasta *.jpg
+/assets/sykes *.jpg
+/assets/whitney *.jpg

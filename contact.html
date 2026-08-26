@@ -75,23 +75,33 @@
     var info = document.getElementById("contact-info");
     var pets = 0;
     var needed = 2;
+    var bloomsAt = 8;
     var revealed = false;
+    var bloomed = false;
 
     function pet() {
-      if (revealed) return;
       pets++;
       dog.classList.remove("pet-bump");
       void dog.offsetWidth;
       dog.classList.add("pet-bump");
 
-      if (pets >= needed) {
+      // Petting keeps working after the email appears — it used to return early
+      // here, so the dog went inert at exactly the moment people were enjoying it.
+      if (!revealed && pets >= needed) {
         revealed = true;
         hint.textContent = "good dog.";
         info.hidden = false;
         document.getElementById("email-link").href = "mailto:" + EMAIL_PARTS.join("");
         document.getElementById("email-link").textContent = EMAIL_PARTS.join("");
-      } else {
+      } else if (!revealed) {
         hint.textContent = "keep petting...";
+      } else if (!bloomed && pets >= bloomsAt) {
+        bloomed = true;
+        var img = dog.querySelector("img");
+        img.src = "assets/img/dog-flower.png";
+        img.alt = "my dog, wearing a flower";
+        dog.classList.add("dog-bloom");
+        hint.textContent = "best dog.";
       }
     }
 

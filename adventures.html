@@ -42,7 +42,8 @@
     </nav>
   </header>
 
-  <main class="page-main">
+  <main class="page-main adventures-main">
+    <img src="assets/contours.svg" class="adv-bleed" alt="" aria-hidden="true" />
     <h1>Adventures</h1>
     <p class="page-intro">Some recent highlights.</p>
 
@@ -55,9 +56,9 @@
           <p class="adv-date">May 24, 2026</p>
           <h3 class="adv-title">Mount Shasta <span class="adv-place">via Bunny Flat &middot; Shasta-Trinity, California</span></h3>
           <dl class="adv-stats">
-            <div class="adv-stat"><dt>Summit</dt><dd>14,179 ft</dd></div>
-            <div class="adv-stat"><dt>Gain</dt><dd>7,229 ft</dd></div>
-            <div class="adv-stat"><dt>Distance</dt><dd>11 mi</dd></div>
+            <div class="adv-stat"><dt>Summit</dt><dd><span class="u-imp">14,179 ft</span><span class="u-met">4,322 m</span></dd></div>
+            <div class="adv-stat"><dt>Gain</dt><dd><span class="u-imp">7,229 ft</span><span class="u-met">2,203 m</span></dd></div>
+            <div class="adv-stat"><dt>Distance</dt><dd><span class="u-imp">11 mi</span><span class="u-met">17.7 km</span></dd></div>
           </dl>
           <div class="adv-photos">
             <img src="assets/img/adventures/shasta-1.jpg" width="1050" height="1400" loading="lazy" alt="The sun over a snowfield high on Mount Shasta." />
@@ -93,9 +94,9 @@
           <p class="adv-date">December 20, 2025</p>
           <h3 class="adv-title">Volcán Cotopaxi <span class="adv-place">Andes, Ecuador</span></h3>
           <dl class="adv-stats">
-            <div class="adv-stat"><dt>Summit</dt><dd>19,351 ft</dd></div>
-            <div class="adv-stat"><dt>Gain</dt><dd>4,297 ft</dd></div>
-            <div class="adv-stat"><dt>Distance</dt><dd>4 mi</dd></div>
+            <div class="adv-stat"><dt>Summit</dt><dd><span class="u-imp">19,351 ft</span><span class="u-met">5,898 m</span></dd></div>
+            <div class="adv-stat"><dt>Gain</dt><dd><span class="u-imp">4,297 ft</span><span class="u-met">1,310 m</span></dd></div>
+            <div class="adv-stat"><dt>Distance</dt><dd><span class="u-imp">4 mi</span><span class="u-met">6.4 km</span></dd></div>
           </dl>
           <div class="adv-photos">
             <img src="assets/img/adventures/cotopaxi-1.jpg" width="1050" height="1400" loading="lazy" alt="A line of headlamps on the Cotopaxi glacier in the dark." />
@@ -108,9 +109,9 @@
           <p class="adv-date">October 25, 2025</p>
           <h3 class="adv-title">Mount Whitney <span class="adv-place">via Whitney Portal &middot; Inyo, California</span></h3>
           <dl class="adv-stats">
-            <div class="adv-stat"><dt>Summit</dt><dd>14,505 ft</dd></div>
-            <div class="adv-stat"><dt>Gain</dt><dd>6,650 ft</dd></div>
-            <div class="adv-stat"><dt>Distance</dt><dd>21.4 mi</dd></div>
+            <div class="adv-stat"><dt>Summit</dt><dd><span class="u-imp">14,505 ft</span><span class="u-met">4,421 m</span></dd></div>
+            <div class="adv-stat"><dt>Gain</dt><dd><span class="u-imp">6,650 ft</span><span class="u-met">2,027 m</span></dd></div>
+            <div class="adv-stat"><dt>Distance</dt><dd><span class="u-imp">21.4 mi</span><span class="u-met">34.4 km</span></dd></div>
           </dl>
           <div class="adv-photos">
             <img src="assets/img/adventures/whitney-1.jpg" width="1050" height="1400" loading="lazy" alt="Sunrise over the Owens Valley from high on Mount Whitney." />
@@ -123,8 +124,8 @@
           <p class="adv-date">September 18, 2025</p>
           <h3 class="adv-title">Half Dome <span class="adv-place">via Yosemite Valley &middot; Yosemite, California</span></h3>
           <dl class="adv-stats">
-            <div class="adv-stat"><dt>Gain</dt><dd>4,800 ft</dd></div>
-            <div class="adv-stat"><dt>Distance</dt><dd>16 mi</dd></div>
+            <div class="adv-stat"><dt>Gain</dt><dd><span class="u-imp">4,800 ft</span><span class="u-met">1,463 m</span></dd></div>
+            <div class="adv-stat"><dt>Distance</dt><dd><span class="u-imp">16 mi</span><span class="u-met">25.7 km</span></dd></div>
           </dl>
           <div class="adv-photos">
             <img src="assets/img/adventures/half-dome-1.jpg" width="1050" height="1400" loading="lazy" alt="Three of us on the summit of Half Dome with our arms up." />
@@ -136,8 +137,8 @@
           <p class="adv-date">August 30, 2025</p>
           <h3 class="adv-title">Sykes Hot Springs <span class="adv-place">via Pine Ridge Trail &middot; Big Sur, California</span></h3>
           <dl class="adv-stats">
-            <div class="adv-stat"><dt>Gain</dt><dd>5,442 ft</dd></div>
-            <div class="adv-stat"><dt>Distance</dt><dd>20.6 mi</dd></div>
+            <div class="adv-stat"><dt>Gain</dt><dd><span class="u-imp">5,442 ft</span><span class="u-met">1,659 m</span></dd></div>
+            <div class="adv-stat"><dt>Distance</dt><dd><span class="u-imp">20.6 mi</span><span class="u-met">33.2 km</span></dd></div>
           </dl>
           <div class="adv-photos">
             <img src="assets/img/adventures/sykes-1.jpg" width="1050" height="1400" loading="lazy" alt="The creek beside the Pine Ridge Trail, boulders and green forest." />
@@ -180,6 +181,13 @@
   </div>
 
   <script>
+    // Hover does the unit swap in CSS; touch has no hover, so a tap on the stats
+    // row latches the same state.
+    document.addEventListener('click', function (e) {
+      const stats = e.target.closest('.adv-stats');
+      if (stats) stats.classList.toggle('metric');
+    });
+
     (function () {
       const box = document.getElementById('lightbox');
       const full = box.querySelector('img');
