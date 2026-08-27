@@ -109,11 +109,15 @@ a:hover { border-color: var(--espresso); }
   border: 1px solid var(--tan-light);
 }
 
+/* Clickable things that are not inline prose links lighten on hover instead of
+   growing an underline. The transparent border stays so nothing shifts by 1px
+   when the colour changes. */
 .monogram-text {
   border-bottom: 1px solid transparent;
+  transition: color 0.18s ease;
 }
 
-.monogram:hover .monogram-text { border-color: var(--tan); }
+.monogram:hover .monogram-text { color: var(--muted); }
 
 .nav-row { display: contents; }
 
@@ -128,9 +132,12 @@ a:hover { border-color: var(--espresso); }
 .site-nav a {
   border-bottom: 1px solid transparent;
   color: var(--espresso);
+  transition: color 0.18s ease;
 }
 
-.site-nav a:hover { border-color: var(--tan); }
+/* border-color must be pinned back to transparent: the global a:hover would
+   otherwise paint the underline these rules exist to remove */
+.site-nav a:hover { color: var(--muted); border-color: transparent; }
 
 main.home {
   max-width: var(--shell);
@@ -452,9 +459,10 @@ main.home {
 .essay-link {
   font-size: 1.1rem;
   border-bottom: 1px solid transparent;
+  transition: color 0.18s ease;
 }
 
-.essay-link:hover { border-color: var(--tan); }
+.essay-link:hover { color: var(--muted); border-color: transparent; }
 
 .essay-date {
   font-family: "Inter", sans-serif;
@@ -477,9 +485,11 @@ main.home {
   color: var(--muted);
   border-bottom: none;
   margin-bottom: 1.5rem;
+  transition: color 0.18s ease;
 }
 
-.essay-back:hover { color: var(--espresso); }
+/* already muted, so it lightens further rather than darkening */
+.essay-back:hover { color: var(--tan); }
 
 .essay-meta {
   font-family: "Inter", sans-serif;
@@ -914,16 +924,30 @@ main.home {
   user-select: none;
 }
 
-.adv-stats:hover .u-imp,
 .adv-stats.metric .u-imp {
   opacity: 0;
   user-select: none;
 }
 
-.adv-stats:hover .u-met,
 .adv-stats.metric .u-met {
   opacity: 1;
   user-select: auto;
+}
+
+/* Hover is gated to devices that actually have a pointer. A tap on a phone
+   leaves :hover stuck on the element until you tap elsewhere, so the tap-to-
+   toggle class was being overridden by a hover state that never cleared — the
+   second tap removed .metric but the row stayed metric. */
+@media (hover: hover) {
+  .adv-stats:hover .u-imp {
+    opacity: 0;
+    user-select: none;
+  }
+
+  .adv-stats:hover .u-met {
+    opacity: 1;
+    user-select: auto;
+  }
 }
 
 /* Photos are a fixed-HEIGHT strip, never fixed-width. The set is a mix of

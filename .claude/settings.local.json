@@ -14,7 +14,9 @@
       "Bash(cp adventures.html /tmp/adv-backup.html)",
       "Bash(git commit *)",
       "Bash(git show *)",
-      "Bash(git reset *)"
+      "Bash(git reset *)",
+      "mcp__claude-in-chrome__computer",
+      "mcp__claude-in-chrome__navigate"
     ]
   }
 }
