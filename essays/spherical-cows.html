@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spherical Cows — Marina Yu</title>
+  <meta name="description" content="Notes from a summer on an FX desk: correlation, causation, the reference class problem, and why you still have to trade when nothing is airtight." />
+  <link rel="canonical" href="https://marinayu.me/essays/spherical-cows.html" />
+  <meta property="og:title" content="Spherical Cows" />
+  <meta property="og:site_name" content="Marina Yu" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://marinayu.me/essays/spherical-cows.html" />
+  <meta property="og:description" content="Notes from a summer on an FX desk: correlation, causation, the reference class problem, and why you still have to trade when nothing is airtight." />
+  <meta property="og:image" content="https://marinayu.me/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="article:published_time" content="2026-08-10" />
+  <meta property="article:author" content="Marina Yu" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Spherical Cows" />
+  <meta name="twitter:description" content="Notes from a summer on an FX desk: correlation, causation, the reference class problem, and why you still have to trade when nothing is airtight." />
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="monogram">
+      <img src="../assets/img/headshot.jpg" alt="" class="monogram-avatar" />
+      <span class="monogram-text">M.Y.</span>
+    </a>
+    <nav class="site-nav">
+      <div class="nav-row">
+        <a href="../writing.html">Writing</a>
+        <a href="../bookshelf.html">Bookshelf</a>
+      </div>
+      <div class="nav-row">
+        <a href="../adventures.html">Adventures</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-main essay-main">
+    <a href="../writing.html" class="essay-back">&larr; Writing</a>
+    <h1>Spherical Cows</h1>
+    <p class="essay-meta">August 10, 2026</p>
+
+    <article class="essay-body">
+      <p><em>Notes from a summer on an FX desk.</em></p>
+
+      <p>Causation vs. correlation is an age-old question. We don’t necessarily know that X-rays cause cancer. But say you knew that everyone who got an X-ray got cancer. Would you still get an X-ray? What is the fundamental standard that historical frequencies have to meet in order to constitute causation?</p>
+
+      <p>Enter the world of FX trading. Rate decisions are discrete: hike, hold, cut, two hikes, two cuts, etc. FX is continuous, so its outcomes are infinite, and so is its sample space. This matters for frequencies. With rates, history gives you many observations of each outcome, but any specific FX outcome has essentially never happened before. Many things also move an FX pair: rate differentials, terms of trade, etc. I’ll call these “drivers,” not causes, because again, we cannot establish causation. All we can do is use historical correlation to infer it.</p>
+
+      <p>How much these drivers matter also shifts over time. When there is a geopolitical risk premium, for example, commodities like oil might play a larger role. Depending on the tenor and the regime, different factors carry different weights. This instantly reminded me of the reference class problem: the probability of an event depends on which class of past events you count it as belonging to. Volatility estimates for options pricing are a clear case. The standard lookback is one year, but a three-month window or a “since the regime began” window would give a different number, and there’s no principled way to choose. The most relevant reference class, the current regime, usually has the least data.</p>
+
+      <p>So, what’s the best way to look at correlated markets? One approach is to look historically and bucket things. For instance, if I want to see how risk sentiment and oil prices impact a petrocurrency, I can split historical prices into four regimes: oil up or down, crossed with risk-on or risk-off. But this is not enough to infer causation. A third factor, like a global growth shock, can drive oil, risk sentiment, and the currency at once. The variables can also feed into each other. Each split shrinks the sample, which is the same tradeoff as before. Regime boundaries are often drawn after seeing the data, and relationships can shift within a regime. At best, buckets give conditional correlations, not what would have happened under a different intervention.</p>
+
+      <p>We can think about modeling in two layers. First, the individual players in the market: how they make decisions based on what they think the fair value of an asset is. Second, our own estimate of fair value, through the fundamentals driving the price. I think this is very cool. Even after you approximate the fundamental value of an FX pair, you need to think about where your view diverges from the market’s, and whether there are any mispricings. This is the hardest part, because we can never really know what other people think, and we can’t fully model their actions, or their irrationality.</p>
+
+      <p>And yet, you still have to trade. I find this in tension with how I’ve been trained. As a philosophy and mathematics student, I work with things that are exhaustive. I cannot assert something unless it’s airtight, and even then, it comes with a laundry list of assumptions and hedges. Markets reward the opposite.</p>
+
+      <p><em>P.S. The title comes from a trader I admired. After I vented about modeling in discretionary global macro, he told me the old joke about a physicist who solves a farmer’s problem by assuming a spherical cow. We ended up talking through all of these philosophical questions, and the phrase has stuck with me since.</em></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 Marina Yu</span>
+  </footer>
+</body>
+</html>
