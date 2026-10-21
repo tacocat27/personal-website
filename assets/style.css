@@ -1,23 +1,31 @@
 :root {
-  --cream: #f2f0eb;
-  --espresso: #37342f;
-  --tan: #c0a483;
-  --tan-light: #e3ddd2;
-  --black: #22201d;
-  /* secondary text — dark enough to stay readable at small sizes */
-  --muted: #7a6a58;
+  /* One ink on one paper. Everything drawn — text, rules, dots, the mountain
+     line — is --ink; hierarchy comes from size and italic, never from a second
+     colour. The SVGs in assets/ hard-code the same value. */
+  --cream: #f7f5ef;
+  --ink: #37342f;
+  /* the same ink thinned out, for underlines and rules that sit under text */
+  --hairline: color-mix(in srgb, var(--ink) 40%, transparent);
+  --hover-fade: 0.55;
+  /* The whole type scale. Every size on the site is one of these four; only the
+     Patterns graph labels and the lightbox glyphs step outside it. */
+  --text-xl: 2.2rem;   /* page titles */
+  --text-lg: 1.25rem;  /* names in a list: essays, books, adventures */
+  --text-md: 1.08rem;  /* prose, nav, anything unmarked */
+  --text-sm: 0.94rem;  /* annotations: dates, places, labels, captions, footer */
   /* one column width shared by header, content, and footer so they line up */
   --shell: 720px;
 }
 
 body.wide { --shell: 960px; }
 
-/* Type rule: Newsreader is the site's voice — prose, headings, list items, nav,
-   italic asides. Inter is only for annotations attached to content: the date
-   beside a title, the label above a list, the copyright under a page, the
-   back-link above a heading. It never speaks on its own, which is why the nav is
-   serif (it sits beside the monogram with no content to annotate). Italic is
-   always Newsreader — no italic Inter is loaded, and a faked slant looks it. */
+/* Type rule: Newsreader is the only face. Roman is the voice — prose, headings,
+   list items, nav. Italic is for annotations attached to content: the date
+   beside a title, the label above a list, the back-link above a heading, a
+   caption. Headings are set large at regular weight rather than bold.
+
+   Hover rule: clickable things that are not inline prose links fade to
+   --hover-fade. There is no second colour to change to. */
 
 * { box-sizing: border-box; }
 
@@ -35,11 +43,15 @@ html, body {
   margin: 0;
   padding: 0;
   background: var(--cream);
-  color: var(--espresso);
+  color: var(--ink);
   font-family: "Newsreader", Georgia, serif;
   font-size: 18px;
   line-height: 1.65;
 }
+
+/* rem stays anchored to the 18px root; body text takes the prose size so
+   anything without a size of its own lands on the scale */
+body { font-size: var(--text-md); }
 
 /* Newsreader draws its em dash at 0.66em, which reads as a stump next to the
    text. scaleX lengthens the bar without thickening it; the margin gives back
@@ -59,10 +71,11 @@ html, body {
 a {
   color: inherit;
   text-decoration: none;
-  border-bottom: 1px solid var(--tan);
+  border-bottom: 1px solid var(--hairline);
+  transition: border-color 0.18s ease;
 }
 
-a:hover { border-color: var(--espresso); }
+a:hover { border-color: var(--ink); }
 
 .site-header {
   position: relative;
@@ -87,17 +100,17 @@ a:hover { border-color: var(--espresso); }
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: bottom;
-  opacity: 0.9;
+  opacity: 0.5;
 }
 
 .monogram {
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: 1.1rem;
+  font-size: var(--text-md);
   letter-spacing: 0.12em;
   font-weight: 500;
-  color: var(--black);
+  color: var(--ink);
   border-bottom: none;
 }
 
@@ -106,18 +119,16 @@ a:hover { border-color: var(--espresso); }
   height: 64px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid var(--tan-light);
 }
 
-/* Clickable things that are not inline prose links lighten on hover instead of
-   growing an underline. The transparent border stays so nothing shifts by 1px
-   when the colour changes. */
+/* Clickable things that are not inline prose links fade on hover instead of
+   growing an underline. The transparent border stays so nothing shifts by 1px. */
 .monogram-text {
   border-bottom: 1px solid transparent;
-  transition: color 0.18s ease;
+  transition: opacity 0.18s ease;
 }
 
-.monogram:hover .monogram-text { color: var(--muted); }
+.monogram:hover .monogram-text { opacity: var(--hover-fade); }
 
 .nav-row { display: contents; }
 
@@ -125,19 +136,18 @@ a:hover { border-color: var(--espresso); }
   display: flex;
   flex-wrap: wrap;
   gap: 1.75rem;
-  font-size: 0.98rem;
+  font-size: var(--text-md);
   letter-spacing: 0.01em;
 }
 
 .site-nav a {
   border-bottom: 1px solid transparent;
-  color: var(--espresso);
-  transition: color 0.18s ease;
+  transition: opacity 0.18s ease;
 }
 
 /* border-color must be pinned back to transparent: the global a:hover would
    otherwise paint the underline these rules exist to remove */
-.site-nav a:hover { color: var(--muted); border-color: transparent; }
+.site-nav a:hover { opacity: var(--hover-fade); border-color: transparent; }
 
 main.home {
   max-width: var(--shell);
@@ -145,18 +155,18 @@ main.home {
   padding: 0 1.5rem;
 }
 
+.home-intro { max-width: 33em; }
+
 .home-intro p {
   margin: 0 0 1.3rem;
-  font-size: 1.15rem;
+  font-size: var(--text-md);
 }
 
 .site-footer {
   max-width: var(--shell);
   margin: 0 auto;
   padding: 2rem 1.5rem 3rem;
-  font-family: "Inter", sans-serif;
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-size: var(--text-sm);
 }
 
 .page-main {
@@ -179,23 +189,22 @@ main.home {
 }
 
 .page-main h1 {
-  font-weight: 500;
-  font-size: 1.6rem;
-  margin-bottom: 0.5rem;
+  font-weight: 400;
+  font-size: var(--text-xl);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 1.4rem 0 0.6rem;
 }
 
-.page-placeholder {
-  color: var(--muted);
-  font-style: italic;
-}
+.page-placeholder { font-style: italic; }
 
 .patterns-main {
   max-width: var(--shell);
 }
 
 .patterns-intro {
-  font-size: 1.05rem;
-  color: var(--espresso);
+  font-size: var(--text-md);
+  color: var(--ink);
   margin: 0.4rem 0 1.1rem;
 }
 
@@ -219,14 +228,14 @@ main.home {
 }
 
 .graph-edge {
-  stroke: var(--tan-light);
+  stroke: var(--ink);
   stroke-width: 1;
-  opacity: 0.8;
-  transition: stroke 0.2s ease, opacity 0.2s ease;
+  opacity: 0.22;
+  transition: opacity 0.2s ease;
 }
 
-.graph-edge.faded { opacity: 0.18; }
-.graph-edge.lit { stroke: var(--tan); opacity: 1; }
+.graph-edge.faded { opacity: 0.06; }
+.graph-edge.lit { opacity: 0.75; }
 
 .graph-node {
   position: absolute;
@@ -235,7 +244,6 @@ main.home {
   align-items: center;
   gap: 0.4rem;
   white-space: nowrap;
-  font-family: "Inter", sans-serif;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -243,14 +251,11 @@ main.home {
 .node-dot {
   flex: 0 0 auto;
   border-radius: 50%;
-  background: var(--tan);
-  transition: background 0.2s ease, transform 0.2s ease;
+  background: var(--ink);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.node-label {
-  color: var(--espresso);
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
+.node-label { transition: opacity 0.2s ease; }
 
 .graph-node--domain {
   cursor: pointer;
@@ -260,20 +265,18 @@ main.home {
 .graph-node--domain .node-dot {
   width: 16px;
   height: 16px;
-  background: var(--espresso);
 }
 
 .graph-node--domain .node-label {
-  font-family: "Newsreader", serif;
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: var(--black);
+  font-size: var(--text-md);
 }
 
 .graph-node--domain:hover .node-dot { transform: scale(1.15); }
 
+/* selected goes hollow: with one ink there is no second fill to switch to */
 .graph-node--domain.selected .node-dot {
-  background: var(--tan);
+  background: var(--cream);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
   transform: scale(1.25);
 }
 
@@ -302,15 +305,11 @@ main.home {
   margin: 1rem auto 0;
   padding: 0 1rem;
   text-align: center;
-  font-size: 1.02rem;
-  color: var(--espresso);
+  font-size: var(--text-md);
   text-wrap: balance;
 }
 
-.patterns-quote-panel.placeholder {
-  font-style: italic;
-  color: var(--muted);
-}
+.patterns-quote-panel.placeholder { font-style: italic; }
 
 /* tensions */
 
@@ -327,21 +326,17 @@ main.home {
 
 .tension-row {
   padding: 1.5rem 0.2rem;
-  border-top: 1px solid var(--tan-light);
 }
 
 .tension-pair {
-  font-family: "Newsreader", serif;
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: var(--black);
+  font-size: var(--text-md);
+  font-style: italic;
   margin: 0 0 0.4rem;
 }
 
 .tension-row p:not(.tension-pair) {
   margin: 0;
-  font-size: 0.95rem;
-  color: var(--espresso);
+  font-size: var(--text-sm);
 }
 
 .patterns-bleed-wrap {
@@ -355,7 +350,7 @@ main.home {
   bottom: 0;
   width: 100%;
   height: auto;
-  opacity: 0.4;
+  opacity: 0.15;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 25%, black 85%);
   mask-image: linear-gradient(to bottom, transparent 0%, transparent 25%, black 85%);
   z-index: 0;
@@ -373,13 +368,9 @@ main.home {
   margin-top: 1.2rem;
   padding: 1.6rem 1.2rem 0;
   font-weight: 500;
-  color: var(--black);
 }
 
-.patterns-closing strong {
-  font-weight: 600;
-  color: var(--black);
-}
+.patterns-closing strong { font-weight: 600; }
 
 @media (max-width: 700px) {
   .patterns-graph { aspect-ratio: 4 / 5; }
@@ -394,12 +385,11 @@ main.home {
     min-width: 100%;
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 40%, black 80%);
     mask-image: linear-gradient(to bottom, transparent 0%, transparent 40%, black 80%);
-    opacity: 0.5;
+    opacity: 0.18;
   }
 }
 
 .page-intro {
-  color: var(--muted);
   font-style: italic;
   margin-bottom: 2.5rem;
 }
@@ -409,15 +399,10 @@ main.home {
 }
 
 .book-section h2 {
-  font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 0.9rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--tan-light);
+  font-weight: 400;
+  font-style: italic;
+  font-size: var(--text-sm);
+  margin: 0 0 0.5rem;
 }
 
 .book-list {
@@ -427,19 +412,12 @@ main.home {
 }
 
 .book-list li {
-  padding: 0.55rem 0;
-  border-bottom: 1px solid var(--tan-light);
-  font-size: 1.05rem;
+  padding: 0.45rem 0;
+  line-height: 1.3;
+  font-size: var(--text-lg);
 }
 
-.book-list li:last-child {
-  border-bottom: none;
-}
-
-.book-more {
-  color: var(--muted);
-  letter-spacing: 0.15em;
-}
+.book-more { letter-spacing: 0.15em; }
 
 .essay-list {
   list-style: none;
@@ -452,22 +430,21 @@ main.home {
   justify-content: space-between;
   align-items: baseline;
   gap: 1.5rem;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid var(--tan-light);
+  padding: 0.45rem 0;
 }
 
 .essay-link {
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
+  line-height: 1.3;
   border-bottom: 1px solid transparent;
-  transition: color 0.18s ease;
+  transition: opacity 0.18s ease;
 }
 
-.essay-link:hover { color: var(--muted); border-color: transparent; }
+.essay-link:hover { opacity: var(--hover-fade); border-color: transparent; }
 
 .essay-date {
-  font-family: "Inter", sans-serif;
-  font-size: 0.82rem;
-  color: var(--muted);
+  font-size: var(--text-sm);
+  font-style: italic;
   white-space: nowrap;
 }
 
@@ -480,33 +457,32 @@ main.home {
 
 .essay-back {
   display: inline-block;
-  font-family: "Inter", sans-serif;
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-size: var(--text-sm);
+  font-style: italic;
   border-bottom: none;
-  margin-bottom: 1.5rem;
-  transition: color 0.18s ease;
+  transition: opacity 0.18s ease;
 }
 
-/* already muted, so it lightens further rather than darkening */
-.essay-back:hover { color: var(--tan); }
+.essay-back:hover { opacity: var(--hover-fade); }
 
 .essay-meta {
-  font-family: "Inter", sans-serif;
-  font-size: 0.82rem;
-  color: var(--muted);
+  font-size: var(--text-sm);
+  font-style: italic;
   margin: 0 0 2.5rem;
 }
 
+/* a book-like measure, ~68 characters, left-aligned under the title */
+.essay-body { max-width: 33em; }
+
 .essay-body p {
   margin: 0 0 1.3rem;
-  font-size: 1.08rem;
+  font-size: var(--text-md);
 }
 
 .essay-premises {
   margin: 1.8rem 0;
-  padding-left: 0.6rem;
-  border-left: 2px solid var(--tan);
+  padding-left: 0.8rem;
+  border-left: 1px solid var(--ink);
 }
 
 .essay-premises p.essay-premise {
@@ -530,94 +506,35 @@ main.home {
   height: auto;
   max-height: 60vh;
   object-fit: cover;
-  border-radius: 4px;
   margin: 0 auto;
-}
-
-.essay-figure--diagram {
-  max-width: 380px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-.essay-figure--diagram svg {
-  display: block;
-  width: 100%;
-  height: auto;
 }
 
 .essay-theorem {
   max-width: 520px;
   margin: 1.8rem auto;
   padding: 1.3rem 1.6rem;
-  border: 1px solid var(--tan);
+  border: 1px solid var(--hairline);
   text-align: center;
 }
 
 .essay-theorem__label {
   display: block;
-  font-family: "Inter", sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-size: var(--text-sm);
+  font-style: italic;
   margin-bottom: 0.6rem;
 }
 
 .essay-theorem p {
   margin: 0;
-  font-size: 0.98rem;
+  font-size: var(--text-md);
   font-style: italic;
-  color: var(--espresso);
-}
-
-.hv-label {
-  font-family: "Newsreader", serif;
-  font-size: 12px;
-  fill: var(--espresso);
-}
-
-.hv-axis {
-  stroke: var(--espresso);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-}
-
-.hv-vertical {
-  stroke: var(--tan);
-  stroke-width: 1.5;
-  stroke-dasharray: 4 4;
-}
-
-.hv-arrowhead {
-  fill: var(--espresso);
-}
-
-.hv-point {
-  fill: var(--tan);
-}
-
-.hv-point-open {
-  fill: var(--cream);
-  stroke: var(--tan);
-  stroke-width: 1.5;
-}
-
-.hv-axis-label {
-  font-family: "Inter", sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  fill: var(--tan);
 }
 
 .essay-figure figcaption {
   margin-top: 0.6rem;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   font-style: italic;
-  color: var(--muted);
 }
 
 /* 404. The contour map sits behind the text at low opacity and fades out at the
@@ -639,7 +556,7 @@ main.home {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: 0.14;
+  opacity: 0.07;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 45%, black 80%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, black 45%, black 80%, transparent 100%);
   pointer-events: none;
@@ -649,10 +566,9 @@ main.home {
 .lost-main > * { position: relative; z-index: 1; }
 
 .lost-code {
-  font-family: "Inter", sans-serif;
-  font-size: 0.78rem;
+  font-size: var(--text-sm);
   letter-spacing: 0.14em;
-  color: var(--muted);
+  color: var(--ink);
   margin: 0 0 0.6rem;
 }
 
@@ -663,8 +579,7 @@ main.home {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem 1.6rem;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--text-md);
 }
 
 .lost-links li { margin: 0; }
@@ -680,7 +595,7 @@ main.home {
 }
 
 .dog-wrap:focus-visible {
-  outline: 2px solid var(--tan);
+  outline: 2px solid var(--ink);
   outline-offset: 6px;
   border-radius: 6px;
 }
@@ -723,27 +638,23 @@ main.home {
   100% { transform: scale(1); }
 }
 
-/* the dog's line — voice, not unfinished copy, so it reads at full strength
-   rather than borrowing the muted italic of .page-placeholder */
+/* the dog's line */
 .contact-hint {
   margin: 1rem 0 0;
-  font-size: 1.05rem;
+  font-size: var(--text-md);
   font-style: italic;
-  color: var(--espresso);
 }
 
 .contact-info {
   margin-top: 0.5rem;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--text-md);
 }
 
 .contact-info p { margin: 0.4rem 0; }
 
 .contact-links {
   margin-top: 2.5rem;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--text-md);
   display: flex;
   gap: 1.5rem;
   justify-content: center;
@@ -765,7 +676,7 @@ main.home {
   bottom: -1.5rem;
   width: calc(100% + 3rem);
   height: auto;
-  opacity: 0.3;
+  opacity: 0.1;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 30%, black 90%);
   mask-image: linear-gradient(to bottom, transparent 0%, transparent 30%, black 90%);
   pointer-events: none;
@@ -778,129 +689,119 @@ main.home {
   z-index: 1;
 }
 
-/* Unfilled placeholder values. Muted italic so an unwritten stat can never be
+/* Unfilled placeholder values. Italic so an unwritten stat can never be
    mistaken for a real one at a glance — delete the class when you fill it in. */
-.adv-todo {
-  font-style: italic;
-  color: var(--muted);
-  font-family: "Newsreader", serif;
+.adv-todo { font-style: italic; }
+
+/* The index is text only, like a table of contents: the year hangs in a left
+   column and the entries read down the right. No rail, no dots, no rules —
+   the year column and the space between groups do the separating. */
+.adv-year-group {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
 }
 
-.adv-stat dt {
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
+.adv-year-group + .adv-year-group { margin-top: 1.4rem; }
 
-/* the rail: one continuous line down the left, a dot per entry */
-.adv-timeline {
-  position: relative;
-  padding-left: 1.9rem;
-}
-
-.adv-timeline::before {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 0.55rem;
-  bottom: 0.5rem;
-  width: 1px;
-  background: var(--tan-light);
-}
-
-.adv-year-group { margin-bottom: 1rem; }
-
-.adv-year-group + .adv-year-group { margin-top: 2.6rem; }
-
-/* flex so the ::after rule can grow into whatever space the year leaves —
-   the rule is what makes a year read as a break rather than a label */
+/* line-height matches one line of .adv-title so the year sits level with the
+   first entry's name */
 .adv-year {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-family: "Newsreader", serif;
-  font-weight: 500;
-  font-size: 1.5rem;
-  letter-spacing: 0;
-  color: var(--black);
-  margin: 0 0 2.2rem;
+  margin: 0;
+  font-weight: 400;
+  font-style: italic;
+  font-size: var(--text-sm);
+  line-height: calc(1.3rem * 1.3);
 }
 
-.adv-year::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--tan-light);
+.adv-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 24rem;
 }
 
-/* the year marker sits on the rail as a hollow dot; entries get filled ones.
-   absolute keeps it out of the flex row */
-.adv-year::before {
-  content: "";
-  position: absolute;
-  left: calc(-1.9rem - 1px);
-  top: 0.62rem;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: var(--cream);
-  border: 1.5px solid var(--tan);
-}
-
-/* Photos sit under the note rather than beside it. A photo column needs the
-   960px shell to work — at 720 it squeezes the text to ~27 characters a line —
-   and every other page is 720, so the width has to match. */
 .adv-entry {
   position: relative;
-  margin-bottom: 3.2rem;
+  margin: 0 0 1.4rem;
 }
 
-.adv-entry::before {
-  content: "";
-  position: absolute;
-  left: -1.9rem;
-  top: 0.6rem;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: var(--tan);
+.adv-link {
+  display: block;
+  border-bottom: none;
+  transition: opacity 0.18s ease;
 }
 
-.adv-date {
-  font-family: "Inter", sans-serif;
-  font-size: 0.82rem;
-  color: var(--muted);
-  margin: 0 0 0.15rem;
-}
+.adv-link:hover { opacity: var(--hover-fade); }
 
 .adv-title {
-  font-weight: 500;
-  font-size: 1.22rem;
-  color: var(--black);
-  margin: 0 0 0.9rem;
+  display: block;
+  font-size: var(--text-lg);
+  line-height: 1.3;
 }
 
-/* metadata, not prose — Inter pairs it with the date directly above, which is
-   the same size and family, so the two lines read as one block */
 .adv-place {
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.82rem;
-  letter-spacing: -0.003em;
-  color: var(--muted);
-  font-weight: 400;
+  display: block;
+  font-style: italic;
+  font-size: var(--text-sm);
+}
+
+/* Hovering a name shows its photos out in the right margin, so the list stays
+   text until you ask. Only where there is a pointer to hover with and a margin
+   wide enough to hold three portrait photos; everywhere else the name is just
+   a link to the entry's page. visibility rather than display keeps the images
+   in layout, so loading="lazy" still fetches them before the first hover. */
+.adv-peek {
+  position: absolute;
+  top: 0.25rem;
+  left: calc(100% + 2.5rem);
+  display: none;
+  gap: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+  pointer-events: none;
+}
+
+.adv-peek img {
+  display: block;
+  height: 130px;
+  width: auto;
+}
+
+@media (hover: hover) and (min-width: 1180px) {
+  .adv-peek { display: flex; }
+}
+
+.adv-entry:hover .adv-peek,
+.adv-link:focus-visible + .adv-peek {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* one adventure's page */
+
+.adv-meta {
+  font-style: italic;
+  font-size: var(--text-sm);
+  margin: 0 0 1.6rem;
 }
 
 .adv-stats {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem 2rem;
-  margin: 0 0 1.2rem;
+  margin: 0 0 1.6rem;
 }
 
 .adv-stat { margin: 0; }
+
+.adv-stat dt {
+  font-style: italic;
+  font-size: var(--text-sm);
+}
 
 /* Imperial and metric are stacked in one grid cell, so the column is as wide as
    the longer of the two and nothing reflows when they swap. Hovering the row
@@ -908,10 +809,7 @@ main.home {
 .adv-stat dd {
   margin: 0.1rem 0 0;
   display: grid;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.95rem;
-  letter-spacing: -0.003em;
-  color: var(--espresso);
+  font-size: var(--text-md);
 }
 
 .adv-stat dd > span {
@@ -950,35 +848,31 @@ main.home {
   }
 }
 
-/* Photos are a fixed-HEIGHT strip, never fixed-width. The set is a mix of
-   portrait and landscape, and fixing the width would make portrait entries
-   ~1.3x taller than landscape ones, which breaks the rhythm of the rail.
-   Fixed height means every entry contributes the same vertical space no
-   matter how many photos it has or which way up they are. */
-.adv-photos {
-  display: flex;
-  gap: 0.5rem;
-  margin: 1.2rem 0;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
-  padding-bottom: 0.3rem;
+.adv-note {
+  max-width: 33em;
+  margin: 0 0 2rem;
+  font-size: var(--text-md);
 }
 
-.adv-photos img {
-  flex: 0 0 auto;
-  height: 150px;
-  width: auto;
+/* Two portrait photos side by side fill the column; a lone photo keeps the
+   same size rather than stretching to the full width. */
+.adv-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.adv-gallery img {
   display: block;
-  scroll-snap-align: start;
+  width: 100%;
+  height: auto;
   cursor: zoom-in;
   transition: opacity 0.15s ease;
 }
 
-.adv-photos img:hover { opacity: 0.85; }
+.adv-gallery img:hover { opacity: 0.85; }
 
-/* full-size viewer: the strip is deliberately small, so clicking has to be
-   able to show the photo properly */
+/* full-size viewer for the gallery */
 .lightbox {
   position: fixed;
   inset: 0;
@@ -1005,7 +899,7 @@ main.home {
   background: none;
   border: none;
   color: var(--cream);
-  font-family: "Newsreader", serif;
+  font-family: inherit;
   line-height: 1;
   cursor: pointer;
   opacity: 0.65;
@@ -1024,32 +918,17 @@ main.home {
   left: 0;
   right: 0;
   text-align: center;
-  font-family: "Inter", sans-serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
+  font-size: var(--text-sm);
+  font-style: italic;
   color: var(--cream);
   opacity: 0.6;
 }
 
 @media (max-width: 600px) {
   .lightbox-prev, .lightbox-next { font-size: 2.5rem; padding: 0.5rem; }
-}
-
-.adv-note {
-  margin: 0;
-  font-size: 1.05rem;
-}
-
-.adv-note + .adv-note { margin-top: 1rem; }
-
-@media (max-width: 600px) {
-  .adv-timeline { padding-left: 1.4rem; }
-  .adv-timeline::before { left: 4px; }
-  .adv-year { font-size: 1.3rem; }
-  .adv-year::before { left: calc(-1.4rem - 1px); width: 11px; height: 11px; }
-  .adv-entry::before { left: -1.4rem; width: 9px; height: 9px; }
-  .adv-photos img { height: 120px; }
-  .adv-stats { gap: 0.4rem 1.4rem; }
+  .adv-year-group { display: block; }
+  .adv-year { margin-bottom: 0.6rem; }
+  .adv-gallery { grid-template-columns: 1fr; }
 }
 
 /* below the shell width the nav no longer fits beside the monogram, so it
@@ -1057,7 +936,7 @@ main.home {
 @media (max-width: 760px) {
   .site-header { flex-direction: column; align-items: flex-start; gap: 0.9rem; padding: 2rem 1.25rem 2.4rem; }
   .site-header::after { height: 22px; }
-  .site-nav { width: 100%; flex-direction: column; align-items: flex-start; font-size: 1rem; row-gap: 0.85rem; }
+  .site-nav { width: 100%; flex-direction: column; align-items: flex-start; font-size: var(--text-md); row-gap: 0.85rem; }
   .nav-row { display: flex; flex-wrap: nowrap; gap: 1.25rem; }
   .monogram-avatar { width: 48px; height: 48px; }
 }
@@ -1071,5 +950,5 @@ main.home {
 }
 
 @media (max-width: 380px) {
-  .site-nav { column-gap: 1rem; font-size: 0.88rem; }
+  .site-nav { column-gap: 1rem; font-size: var(--text-sm); }
 }

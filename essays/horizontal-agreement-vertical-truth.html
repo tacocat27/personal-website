@@ -23,7 +23,7 @@
   <link rel="icon" type="image/png" href="../assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/style.css" />
 </head>
 <body>
@@ -50,7 +50,7 @@
     <p class="essay-meta">June 6, 2026</p>
 
     <article class="essay-body">
-      <p><em>Adapted from a paper I wrote for a computability and logic class. The original is <a href="../assets/papers/horizontal-agreement-vertical-truth.pdf" target="_blank" rel="noopener">here</a>.</em></p>
+      <p><em>Adapted from a paper I wrote for a computability and logic class.</em></p>
 
       <p>Underneath almost everything we say about computers and algorithms sits a single claim, the Church&ndash;Turing Thesis, which nearly everyone who invokes it treats as settled. Yet it cannot be a theorem, as it does not admit of proof. A deeper question emerges: what, exactly then, entitles us to believe it?</p>
 
@@ -78,30 +78,6 @@
       <p>Consider five witnesses to a crime, interviewed separately, who describe it identically. Their agreement is <span class="nobr">reassuring<span class="emdash">&mdash;</span></span>unless all five watched from the same obstructed angle, in which case they agree with one another and yet miss the same thing. Their consistency tells us nothing about what none of them could see.</p>
 
       <p>So with the formalisms. Their agreement is <em>horizontal</em>: it certifies coherence among the candidate definitions. But the question we care about is <em>vertical</em>: is any of them faithful to the original concept? Horizontal agreement cannot answer a vertical <span class="nobr">question<span class="emdash">&mdash;</span></span>namely, that a uniform formalization is perfectly consistent with a uniform omission. Invariance is thus necessary for having captured effective calculability, but cannot be sufficient. G&ouml;del made essentially this point, that a satisfying analysis would require a notion of computability that is genuinely absolute, and I cite him here as evidence, not authority.</p>
-
-      <figure class="essay-figure essay-figure--diagram">
-        <svg viewBox="0 0 360 280" role="img" aria-labelledby="hv-diagram-title">
-          <title id="hv-diagram-title">A simple x-y axis graph. The x-axis is labeled horizontal agreement; the y-axis is labeled vertical truth. Three points representing Turing, Church, and G&ouml;del-Kleene cluster tightly near the x-axis, and a dashed line rises from the cluster to an open, unresolved point, showing that their agreement says nothing about how high up the vertical-truth axis they actually are.</title>
-
-          <line x1="50" y1="225" x2="50" y2="20" class="hv-axis" />
-          <polygon points="50,10 44,22 56,22" class="hv-arrowhead" />
-          <line x1="50" y1="225" x2="330" y2="225" class="hv-axis" />
-          <polygon points="340,225 328,219 328,231" class="hv-arrowhead" />
-
-          <text x="190" y="258" class="hv-axis-label" text-anchor="middle">horizontal agreement</text>
-          <text x="20" y="122" class="hv-axis-label" text-anchor="middle" transform="rotate(-90 20 122)">vertical truth</text>
-
-          <line x1="195" y1="208" x2="195" y2="55" class="hv-vertical" />
-          <circle cx="195" cy="47" r="3.5" class="hv-point-open" />
-
-          <circle cx="175" cy="212" r="4" class="hv-point" />
-          <circle cx="195" cy="216" r="4" class="hv-point" />
-          <circle cx="215" cy="213" r="4" class="hv-point" />
-
-          <text x="195" y="195" class="hv-label" text-anchor="middle">Turing, Church, G&ouml;del&ndash;Kleene</text>
-        </svg>
-        <figcaption>Agreement is horizontal; truth is vertical.</figcaption>
-      </figure>
 
       <p><strong>The grounding problem</strong></p>
 

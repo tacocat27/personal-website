@@ -155,7 +155,7 @@ def main() -> int:
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     os.chdir(root)
 
-    targets = sorted(set(glob.glob('*.html') + glob.glob('essays/*.html')))
+    targets = sorted(set(glob.glob('*.html') + glob.glob('essays/*.html') + glob.glob('adventures/*.html')))
     changed = []
     for path in targets:
         did, summary = process(path, check_only)
