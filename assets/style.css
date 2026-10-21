@@ -149,18 +149,18 @@ a:hover { border-color: var(--ink); }
    otherwise paint the underline these rules exist to remove */
 .site-nav a:hover { opacity: var(--hover-fade); border-color: transparent; }
 
-main.home {
-  max-width: var(--shell);
-  margin: 2rem auto 4rem;
-  padding: 0 1.5rem;
+/* Newsreader reshapes itself with optical size, and the browser picks the size
+   from font-size, so the intro at --text-md would get the sturdier 19px cut.
+   Pinning it to the cut the index titles get at --text-lg gives the same
+   letterforms at the nav's size. */
+.home-intro {
+  max-width: 33em;
+  font-variation-settings: "opsz" 22.5;
 }
 
-.home-intro { max-width: 33em; }
+.home-intro p { margin: 0 0 1.3rem; }
 
-.home-intro p {
-  margin: 0 0 1.3rem;
-  font-size: var(--text-md);
-}
+h1 + .home-intro { margin-top: 1.6rem; }
 
 .site-footer {
   max-width: var(--shell);
@@ -173,19 +173,6 @@ main.home {
   max-width: var(--shell);
   margin: 2rem auto 4rem;
   padding: 0 1.5rem;
-}
-
-/* present to screen readers and search engines, invisible on screen */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
 
 .page-main h1 {
@@ -339,31 +326,6 @@ main.home {
   font-size: var(--text-sm);
 }
 
-.patterns-bleed-wrap {
-  position: relative;
-}
-
-.patterns-bleed-img {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-  opacity: 0.15;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 25%, black 85%);
-  mask-image: linear-gradient(to bottom, transparent 0%, transparent 25%, black 85%);
-  z-index: 0;
-  pointer-events: none;
-  user-select: none;
-}
-
-.patterns-tensions,
-.patterns-closing {
-  position: relative;
-  z-index: 1;
-}
-
 .patterns-closing {
   margin-top: 1.2rem;
   padding: 1.6rem 1.2rem 0;
@@ -377,16 +339,6 @@ main.home {
   .graph-node--domain .node-label { font-size: 0.92rem; }
   .graph-node--sub .node-label { font-size: 0.68rem; }
   .tension-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .patterns-bleed-img {
-    height: 260px;
-    width: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 100%;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 40%, black 80%);
-    mask-image: linear-gradient(to bottom, transparent 0%, transparent 40%, black 80%);
-    opacity: 0.18;
-  }
 }
 
 .page-intro {
@@ -394,65 +346,68 @@ main.home {
   margin-bottom: 2.5rem;
 }
 
-.book-section {
-  margin-bottom: 2.5rem;
+/* Index pages — Writing, Bookshelf, Adventures — share one layout, like a
+   table of contents: the group label (a year, "Currently Reading") hangs in a
+   left column and the entries read down the right, each a name with an italic
+   line under it. No rules or dots; the label column and the space between
+   groups do the separating. */
+h1 + .index-group { margin-top: 2rem; }
+
+.index-group {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
 }
 
-.book-section h2 {
+.index-group + .index-group { margin-top: 1.4rem; }
+
+/* A label that wraps ("Currently Reading") keeps its two lines close, so the
+   line-height is the label's own. The padding makes up the difference from
+   .index-name's taller line, keeping the first line level with the first name. */
+.index-label {
+  margin: 0;
+  padding: calc((var(--text-lg) - var(--text-sm)) * 0.65) 1rem 0 0;
   font-weight: 400;
   font-style: italic;
   font-size: var(--text-sm);
-  margin: 0 0 0.5rem;
+  line-height: 1.3;
 }
 
-.book-list {
+.index-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.book-list li {
-  padding: 0.45rem 0;
-  line-height: 1.3;
+.index-entry {
+  position: relative;
+  margin: 0 0 1.4rem;
+}
+
+.index-link {
+  display: block;
+  border-bottom: none;
+  transition: opacity 0.18s ease;
+}
+
+.index-link:hover { opacity: var(--hover-fade); border-color: transparent; }
+
+.index-name {
+  display: block;
   font-size: var(--text-lg);
+  line-height: 1.3;
+}
+
+.index-meta {
+  display: block;
+  font-style: italic;
+  font-size: var(--text-sm);
 }
 
 .book-more { letter-spacing: 0.15em; }
 
-.essay-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.essay-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1.5rem;
-  padding: 0.45rem 0;
-}
-
-.essay-link {
-  font-size: var(--text-lg);
-  line-height: 1.3;
-  border-bottom: 1px solid transparent;
-  transition: opacity 0.18s ease;
-}
-
-.essay-link:hover { opacity: var(--hover-fade); border-color: transparent; }
-
-.essay-date {
-  font-size: var(--text-sm);
-  font-style: italic;
-  white-space: nowrap;
-}
-
-.essay-meta-right {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  white-space: nowrap;
+@media (max-width: 600px) {
+  .index-group { display: block; }
+  .index-label { margin-bottom: 0.6rem; }
 }
 
 .essay-back {
@@ -537,33 +492,8 @@ main.home {
   font-style: italic;
 }
 
-/* 404. The contour map sits behind the text at low opacity and fades out at the
-   top, the same trick .patterns-bleed-img uses, so it reads as terrain rather
-   than as a background image. */
-.lost-main {
-  position: relative;
-  min-height: 46vh;
-}
-
-.lost-main::before {
-  content: "";
-  position: absolute;
-  left: -1.5rem;
-  right: -1.5rem;
-  top: -1rem;
-  bottom: -2rem;
-  background-image: url("contours.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.07;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 45%, black 80%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, black 45%, black 80%, transparent 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.lost-main > * { position: relative; z-index: 1; }
+/* 404 */
+.lost-main { min-height: 46vh; }
 
 .lost-code {
   font-size: var(--text-sm);
@@ -664,86 +594,12 @@ main.home {
 
 /* adventures */
 
-/* The contour map closes the page out, the same move .patterns-bleed-img makes.
-   Positioned absolutely rather than appended in flow so it costs zero extra
-   scroll, and masked so it only surfaces below the last entry. */
-.adventures-main { position: relative; }
-
-.adv-bleed {
-  position: absolute;
-  left: -1.5rem;
-  right: -1.5rem;
-  bottom: -1.5rem;
-  width: calc(100% + 3rem);
-  height: auto;
-  opacity: 0.1;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 30%, black 90%);
-  mask-image: linear-gradient(to bottom, transparent 0%, transparent 30%, black 90%);
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
-
-.adventures-main > *:not(.adv-bleed) {
-  position: relative;
-  z-index: 1;
-}
-
 /* Unfilled placeholder values. Italic so an unwritten stat can never be
    mistaken for a real one at a glance — delete the class when you fill it in. */
 .adv-todo { font-style: italic; }
 
-/* The index is text only, like a table of contents: the year hangs in a left
-   column and the entries read down the right. No rail, no dots, no rules —
-   the year column and the space between groups do the separating. */
-.adv-year-group {
-  display: grid;
-  grid-template-columns: 5.5rem 1fr;
-}
-
-.adv-year-group + .adv-year-group { margin-top: 1.4rem; }
-
-/* line-height matches one line of .adv-title so the year sits level with the
-   first entry's name */
-.adv-year {
-  margin: 0;
-  font-weight: 400;
-  font-style: italic;
-  font-size: var(--text-sm);
-  line-height: calc(1.3rem * 1.3);
-}
-
-.adv-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: 24rem;
-}
-
-.adv-entry {
-  position: relative;
-  margin: 0 0 1.4rem;
-}
-
-.adv-link {
-  display: block;
-  border-bottom: none;
-  transition: opacity 0.18s ease;
-}
-
-.adv-link:hover { opacity: var(--hover-fade); }
-
-.adv-title {
-  display: block;
-  font-size: var(--text-lg);
-  line-height: 1.3;
-}
-
-.adv-place {
-  display: block;
-  font-style: italic;
-  font-size: var(--text-sm);
-}
+/* narrow enough that a margin is left for .adv-peek */
+.adventures-main .index-list { max-width: 24rem; }
 
 /* Hovering a name shows its photos out in the right margin, so the list stays
    text until you ask. Only where there is a pointer to hover with and a margin
@@ -773,8 +629,8 @@ main.home {
   .adv-peek { display: flex; }
 }
 
-.adv-entry:hover .adv-peek,
-.adv-link:focus-visible + .adv-peek {
+.index-entry:hover .adv-peek,
+.index-link:focus-visible + .adv-peek {
   opacity: 1;
   visibility: visible;
   transform: none;
@@ -926,8 +782,6 @@ main.home {
 
 @media (max-width: 600px) {
   .lightbox-prev, .lightbox-next { font-size: 2.5rem; padding: 0.5rem; }
-  .adv-year-group { display: block; }
-  .adv-year { margin-bottom: 0.6rem; }
   .adv-gallery { grid-template-columns: 1fr; }
 }
 
@@ -939,14 +793,6 @@ main.home {
   .site-nav { width: 100%; flex-direction: column; align-items: flex-start; font-size: var(--text-md); row-gap: 0.85rem; }
   .nav-row { display: flex; flex-wrap: nowrap; gap: 1.25rem; }
   .monogram-avatar { width: 48px; height: 48px; }
-}
-
-@media (max-width: 600px) {
-  .essay-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.4rem;
-  }
 }
 
 @media (max-width: 380px) {
